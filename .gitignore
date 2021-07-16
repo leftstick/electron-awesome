@@ -1,0 +1,16 @@
+#build
+dist/
+output/
+
+#npm
+npm-debug.log
+node_modules/
+package-lock.json
+yarn-error.log
+
+#umi
+.umi
+.umi-production
+
+#misc
+.DS_Store
