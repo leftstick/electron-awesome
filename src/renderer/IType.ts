@@ -1,6 +1,18 @@
 import { Terminal } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
 
+export enum IBingSearchStatus {
+  INITIAL = 'INITIAL',
+  SEARCHING = 'SEARCHING',
+  SEARCH_DONE = 'SEARCH_DONE',
+}
+
+export interface IBing {
+  title: string
+  description: string
+  link: string
+}
+
 export interface ISize {
   width: number
   height: number

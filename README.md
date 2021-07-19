@@ -2,7 +2,9 @@
 
 `Electron Awesome` is an example project to demonstrate some amazing features in electron: 
 
-## Good to Know
+## What you will learn?
+
+- How puppeteer works together with `umi` + `electron`?
 
 
 ## LICENSE

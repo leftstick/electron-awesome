@@ -4,6 +4,7 @@ const { resolve } = require('path')
 /**
  *
  * @param {import("electron").App} app
+ * @returns {Promise<BrowserWindow>}
  */
 module.exports.initializeLaunch = function (app) {
   return app.whenReady().then(() => {
