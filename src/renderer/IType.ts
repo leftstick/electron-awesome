@@ -8,6 +8,7 @@ export enum IBingSearchStatus {
 }
 
 export interface IBing {
+  id: string
   title: string
   description: string
   link: string

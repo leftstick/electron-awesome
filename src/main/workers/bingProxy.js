@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 const electron = require('electron')
 const { BingEvent } = require('./events')
+const { makeId } = require('../util')
 
 function getChromiumExecPath() {
   return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked')
@@ -28,6 +29,7 @@ async function getPageResult(pageUrl, browser) {
       // ignore
     }
     return {
+      id: makeId(10),
       title,
       link,
       description,
@@ -55,6 +57,7 @@ async function searchInBing({ text }) {
   const searchResult = await Promise.all([
     getPageResult(`https://bing.com/search?q=${text}`, browser),
     getPageResult(`https://bing.com/search?q=${text}&first=10`, browser),
+    getPageResult(`https://bing.com/search?q=${text}&first=20`, browser),
   ])
 
   return searchResult.reduce((prev, cur) => prev.concat(cur), [])

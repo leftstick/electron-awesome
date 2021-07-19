@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, Table } from 'antd'
+import { Button, Input, Table, Alert } from 'antd'
 import { useModel } from 'umi'
 import { remote } from 'electron'
 import { useSize } from 'ahooks'
@@ -13,17 +13,13 @@ const columns = [
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    ellipsis: {
-      showTitle: true,
-    },
+    ellipsis: true,
   },
   {
     title: 'Description',
     dataIndex: 'description',
     key: 'description',
-    ellipsis: {
-      showTitle: true,
-    },
+    ellipsis: true,
   },
   {
     title: 'Link',
@@ -34,6 +30,7 @@ const columns = [
       return (
         <Button
           type="link"
+          style={{ padding: 0 }}
           onClick={(e) => {
             remote.shell.openExternal(val)
           }}
@@ -53,19 +50,38 @@ export default function BingProxy() {
 
   return (
     <div className={styles.container}>
+      <Alert
+        message={
+          <div>
+            You will get the first 3 pages of result from&nbsp;
+            <a
+              href="https://bing.com"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                remote.shell.openExternal('https://bing.com')
+              }}
+            >
+              bing.com
+            </a>
+            &nbsp;via puppeteer
+          </div>
+        }
+        type="info"
+      />
       <Table
         loading={searchStatus === IBingSearchStatus.SEARCHING}
         size="small"
         dataSource={searchResult}
         columns={columns}
-        rowKey="link"
         pagination={false}
+        rowKey="id"
         scroll={{
-          y: height,
+          y: height! - 150,
         }}
         title={() => (
           <Input
-            className={styles.searchBox}
+            placeholder="Bing search text..."
             value={text}
             onChange={(e) => {
               setText(e.target.value)
