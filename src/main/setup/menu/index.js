@@ -1,5 +1,6 @@
 const { app, BrowserWindow, shell, Menu } = require('electron')
 const { resolve } = require('path')
+const { openTerminal } = require('../../workers/terminal')
 
 /**
  * @type {{[alias: string]: BrowserWindow }}
@@ -133,39 +134,18 @@ const menus = [
           }
         },
       },
-      {
-        label: 'Next Tab',
-        accelerator: process.platform === 'darwin' ? 'Cmd+Option+right' : 'Ctrl+Alt+right',
-        click: function (e, focusedWindow) {
-          if (focusedWindow.webContents) {
-            const title = focusedWindow.webContents.getTitle()
-            if (title && title.includes('Terminal =>')) {
-              return
-            }
-
-            focusedWindow.webContents.send('change-tab-to', 'next')
-          }
-        },
-      },
-      {
-        label: 'Previous Tab',
-        accelerator: process.platform === 'darwin' ? 'Cmd+Option+left' : 'Ctrl+Alt+left',
-        click: function (item, focusedWindow) {
-          if (focusedWindow.webContents) {
-            const title = focusedWindow.webContents.getTitle()
-            if (title && title.includes('Terminal =>')) {
-              return
-            }
-
-            focusedWindow.webContents.send('change-tab-to', 'previous')
-          }
-        },
-      },
     ],
   },
   {
     label: 'Tool',
     submenu: [
+      {
+        label: 'Terminal',
+        accelerator: 'Ctrl+~',
+        click: function (item, focusedWindow) {
+          openTerminal()
+        },
+      },
       {
         label: 'Reload',
         accelerator: 'CmdOrCtrl+R',

@@ -1,0 +1,26 @@
+.cmdPalette {
+  position: fixed;
+  width: 90vw;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  :global {
+    .ant-select-item-option-active {
+      background-color: #787979;
+      color: #fff;
+    }
+  }
+}
+
+.option {
+  display: flex;
+  width: 100%;
+}
+
+.description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

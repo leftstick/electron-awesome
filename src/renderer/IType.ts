@@ -52,6 +52,9 @@ export interface ICommand {
   alias: string
 }
 
-export interface ITerminalPreference {
-  fontSize: number
+export type ITerminalRef = IXterm & { id: string }
+
+export interface IExecuteResult<T> {
+  destroy: () => void
+  value: Promise<T>
 }

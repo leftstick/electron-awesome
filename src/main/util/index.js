@@ -1,3 +1,7 @@
+const os = require('os')
+
+module.exports.shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL']
+
 module.exports.makeId = function (length) {
   const result = []
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789'
