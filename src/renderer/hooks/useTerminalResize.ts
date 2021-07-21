@@ -46,7 +46,6 @@ export function useInit(
   const { xterm, addson, id } = workingTerminal || {}
 
   useEffect(() => {
-    console.log('run', xtermElem, xterm, addson)
     if (xtermElem && xterm && addson) {
       console.log('run')
       xterm.open(xtermElem)

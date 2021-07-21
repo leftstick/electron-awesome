@@ -33,7 +33,7 @@ function TerminalBox() {
 
   useInit(workingTerminal, xtermElem, 'terminal-resize')
 
-  useResize(workingTerminal, { width: height }, 'terminal-resize')
+  useResize(workingTerminal, { width, height }, 'terminal-resize')
 
   useEffect(() => {
     return setupOpeningListener()
