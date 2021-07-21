@@ -15,6 +15,7 @@ function useTerminalModel() {
   })
   const [cmdPaletteVisible, setCmdPaletteVisible] = useState<boolean>()
   const workingTerminalRef = useRef<ITerminalRef>()
+  const [workingTerminal, setWorkingTerminal] = useState<ITerminalRef>()
 
   const setupOpeningListener = useCallback(() => {
     ipcRenderer.on('open-terminal-in-view', (e, id) => {
@@ -40,6 +41,7 @@ function useTerminalModel() {
       })
 
       workingTerminalRef.current = terminal
+      setWorkingTerminal(terminal)
     })
 
     ipcRenderer.on('open-cmd-palette', (e) => {
@@ -58,7 +60,7 @@ function useTerminalModel() {
       ipcRenderer.removeAllListeners('write-to-xterm')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [workingTerminalRef, setCmdPaletteVisible])
+  }, [workingTerminalRef, setWorkingTerminal, setCmdPaletteVisible])
 
   const { commands, addCustomizedCmd, removeCustomizedCmd, executCommand } = useTerminalCommand({
     workingTerminal: workingTerminalRef,
@@ -73,7 +75,7 @@ function useTerminalModel() {
 
   return {
     setupOpeningListener,
-    workingTerminalRef,
+    workingTerminal,
     cmdPaletteVisible,
     setCmdPaletteVisible,
     commands,

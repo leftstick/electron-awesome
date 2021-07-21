@@ -6,11 +6,11 @@ import { IOptionalSize, ITerminalRef } from '@/IType'
 type IPtyResizeChannel = 'terminal-resize'
 
 export function useResize(
-  workingTerminal: React.MutableRefObject<ITerminalRef | undefined>,
+  workingTerminal: ITerminalRef | undefined,
   size: IOptionalSize,
   ptyResizeChannel: IPtyResizeChannel
 ) {
-  const { xterm, addson, id } = workingTerminal.current || {}
+  const { xterm, addson, id } = workingTerminal || {}
 
   const { run: resize } = useDebounceFn(
     (xterm, addson, size, id) => {
@@ -39,15 +39,16 @@ export function useResize(
 }
 
 export function useInit(
-  workingTerminal: React.MutableRefObject<ITerminalRef | undefined>,
+  workingTerminal: ITerminalRef | undefined,
   xtermElem: HTMLDivElement | null,
-  title: string,
   ptyResizeChannel: IPtyResizeChannel
 ) {
-  const { xterm, addson, id } = workingTerminal.current || {}
+  const { xterm, addson, id } = workingTerminal || {}
 
   useEffect(() => {
+    console.log('run', xtermElem, xterm, addson)
     if (xtermElem && xterm && addson) {
+      console.log('run')
       xterm.open(xtermElem)
       xterm.focus()
       addson.fit.fit()
@@ -56,10 +57,10 @@ export function useInit(
   }, [xterm, xtermElem])
 
   useEffect(() => {
-    if (title) {
-      window.document.title = `Terminal => ${title}`
+    if (id) {
+      window.document.title = `Terminal => ${id}`
     }
-  }, [title])
+  }, [id])
 
   useEffect(() => {
     if (xterm && id) {

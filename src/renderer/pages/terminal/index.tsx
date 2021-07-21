@@ -10,11 +10,11 @@ import 'xterm/css/xterm.css'
 function TerminalBox() {
   const xtermElemRef = useRef<HTMLDivElement>(null)
   const { width, height } = useSize(document.body)
-  const { workingTerminalRef, cmdPaletteVisible, commands, setCmdPaletteVisible, executCommand, setupOpeningListener } =
+  const { workingTerminal, cmdPaletteVisible, commands, setCmdPaletteVisible, executCommand, setupOpeningListener } =
     useModel('useTerminalModel', (m) =>
       pick(
         m,
-        'workingTerminalRef',
+        'workingTerminal',
         'cmdPaletteVisible',
         'commands',
         'setCmdPaletteVisible',
@@ -23,17 +23,17 @@ function TerminalBox() {
       )
     )
 
-  const id = useMemo(() => workingTerminalRef?.current?.id, [workingTerminalRef])
+  const id = workingTerminal?.id
+  const xtermElem = xtermElemRef.current
 
   const xtermDomContent = useMemo(() => {
     return <div ref={xtermElemRef} id={id} style={{ width: '100%', height: '100%' }} />
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
-  useInit(workingTerminalRef, xtermElemRef.current, `${workingTerminalRef?.current?.id}`, 'terminal-resize')
+  useInit(workingTerminal, xtermElem, 'terminal-resize')
 
-  useResize(workingTerminalRef, { width: height }, 'terminal-resize')
+  useResize(workingTerminal, { width: height }, 'terminal-resize')
 
   useEffect(() => {
     return setupOpeningListener()

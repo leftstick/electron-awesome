@@ -6,7 +6,7 @@ import { useSize } from 'ahooks'
 
 import styles from './index.less'
 import { pick } from '@/helpers'
-import { IBingSearchStatus } from '@/IType'
+import { IBingSearchStatus, IBing } from '@/IType'
 
 const columns = [
   {
@@ -14,31 +14,25 @@ const columns = [
     dataIndex: 'title',
     key: 'title',
     ellipsis: true,
+    render: (val: string, record: IBing) => {
+      return (
+        <Button
+          type="link"
+          style={{ padding: 0 }}
+          onClick={(e) => {
+            remote.shell.openExternal(record.link)
+          }}
+        >
+          {val}
+        </Button>
+      )
+    },
   },
   {
     title: 'Description',
     dataIndex: 'description',
     key: 'description',
     ellipsis: true,
-  },
-  {
-    title: 'Link',
-    dataIndex: 'link',
-    key: 'link',
-    width: 60,
-    render: (val: string) => {
-      return (
-        <Button
-          type="link"
-          style={{ padding: 0 }}
-          onClick={(e) => {
-            remote.shell.openExternal(val)
-          }}
-        >
-          Link
-        </Button>
-      )
-    },
   },
 ]
 
