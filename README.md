@@ -4,9 +4,19 @@
 
 ## What you will learn?
 
-- How puppeteer works together with `umi` + `electron`?
+- How to create an [electron] app with [umijs]?
+- How to use [puppeteer] in [umijs]?
+- How to use IPC with a [umijs] based [electron] app?
+- How to create an `About` window?
+- How to create keyboard shortcuts?
+- How to create a web terminal tool?
 
 
 ## LICENSE
 
 [MIT License](https://raw.githubusercontent.com/leftstick/electron-awesome/master/LICENSE)
+
+
+[umijs]: https://umijs.org/
+[electron]: https://www.electronjs.org/
+[puppeteer]: https://pptr.dev/
