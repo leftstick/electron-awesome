@@ -16,6 +16,10 @@
 **Note**: all features are verified on macOS only.
 
 
+Check following demo:
+
+![](./demo.gif)
+
 ## LICENSE
 
 [MIT License](https://raw.githubusercontent.com/leftstick/electron-awesome/master/LICENSE)
