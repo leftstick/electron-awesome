@@ -147,6 +147,34 @@ const menus = [
         },
       },
       {
+        label: 'Next Tab',
+        accelerator: process.platform === 'darwin' ? 'Cmd+Option+right' : 'Ctrl+Alt+right',
+        click: function (e, focusedWindow) {
+          if (focusedWindow.webContents) {
+            const title = focusedWindow.webContents.getTitle()
+            if (title && title.includes('Terminal =>')) {
+              return
+            }
+
+            focusedWindow.webContents.send('change-tab-to', 'next')
+          }
+        },
+      },
+      {
+        label: 'Previous Tab',
+        accelerator: process.platform === 'darwin' ? 'Cmd+Option+left' : 'Ctrl+Alt+left',
+        click: function (item, focusedWindow) {
+          if (focusedWindow.webContents) {
+            const title = focusedWindow.webContents.getTitle()
+            if (title && title.includes('Terminal =>')) {
+              return
+            }
+
+            focusedWindow.webContents.send('change-tab-to', 'previous')
+          }
+        },
+      },
+      {
         label: 'Reload',
         accelerator: 'CmdOrCtrl+R',
         click: function (item, focusedWindow) {

@@ -1,6 +1,11 @@
 import { Terminal } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
 
+export enum ITabs {
+  'bing-proxy' = 'bing-proxy',
+  'preference' = 'preference',
+}
+
 export enum IBingSearchStatus {
   INITIAL = 'INITIAL',
   SEARCHING = 'SEARCHING',

@@ -16,14 +16,10 @@ export function useResize(
     (xterm, addson, size, id) => {
       if (xterm && addson && size.width && id) {
         addson.fit.fit()
-        ipcRenderer.send(
-          ptyResizeChannel,
-          { id },
-          {
-            cols: xterm.cols,
-            rows: xterm.rows,
-          }
-        )
+        ipcRenderer.send(ptyResizeChannel, id, {
+          cols: xterm.cols,
+          rows: xterm.rows,
+        })
       }
     },
     {
@@ -47,7 +43,6 @@ export function useInit(
 
   useEffect(() => {
     if (xtermElem && xterm && addson) {
-      console.log('run')
       xterm.open(xtermElem)
       xterm.focus()
       addson.fit.fit()

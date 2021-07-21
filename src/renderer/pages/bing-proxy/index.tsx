@@ -38,12 +38,13 @@ const columns = [
 
 export default function BingProxy() {
   const { height } = useSize(document.body)
+  const { viewAreaSize } = useModel('useAppModel', (m) => pick(m, 'viewAreaSize'))
   const { searchResult, searchStatus, text, setText, startSearch } = useModel('useBingProxyModel', (m) =>
     pick(m, 'searchResult', 'searchStatus', 'text', 'setText', 'startSearch')
   )
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ height: viewAreaSize.height }}>
       <Alert
         message={
           <div>
@@ -71,7 +72,7 @@ export default function BingProxy() {
         pagination={false}
         rowKey="id"
         scroll={{
-          y: height! - 150,
+          y: height! - 215,
         }}
         title={() => (
           <Input
