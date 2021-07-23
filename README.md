@@ -20,6 +20,11 @@ Check following demo:
 
 ![](./demo.gif)
 
+
+## Download
+
+- Mac 11.11+: [64bit](https://github.com/leftstick/electron-awesome/releases/download/1.0.0/Electron-Awesome.app.zip)
+
 ## LICENSE
 
 [MIT License](https://raw.githubusercontent.com/leftstick/electron-awesome/master/LICENSE)
