@@ -12,6 +12,7 @@
   "build": {
     "productName": "Electron-Awesome",
     "appId": "org.howard.apps",
+    "compression": "maximum",
     "protocols": {
       "name": "electron-awesome-protocol",
       "schemes": [
@@ -55,7 +56,8 @@
   "license": "MIT",
   "dependencies": {
     "node-pty": "^0.10.1",
-    "puppeteer": "^10.1.0"
+    "puppeteer-core": "^10.1.0",
+    "puppeteer-in-electron": "^3.0.5"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.6.2",

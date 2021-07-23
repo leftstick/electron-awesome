@@ -1,11 +1,9 @@
-const puppeteer = require('puppeteer')
+const { BrowserWindow, app } = require('electron')
+const pie = require('puppeteer-in-electron')
 const electron = require('electron')
+const puppeteer = require('puppeteer-core')
 const { BingEvent } = require('./events')
 const { makeId } = require('../util')
-
-function getChromiumExecPath() {
-  return puppeteer.executablePath().replace('app.asar', 'app.asar.unpacked')
-}
 
 /**
  *
@@ -13,8 +11,9 @@ function getChromiumExecPath() {
  * @param {puppeteer.Browser} browser
  */
 async function getPageResult(pageUrl, browser) {
-  const page = await browser.newPage()
-  await page.goto(pageUrl)
+  const window = new BrowserWindow({ show: false })
+  await window.loadURL(pageUrl)
+  const page = await pie.getPage(browser, window)
   await page.waitForSelector('#b_footer')
 
   const elements = await page.$$('#b_results li.b_algo')
@@ -38,21 +37,16 @@ async function getPageResult(pageUrl, browser) {
 
   const searchResult = await Promise.all(searchResultPromises)
   try {
-    page.close()
+    await page.close()
   } catch (error) {
-    // ignore
+  } finally {
+    window.destroy()
   }
   return searchResult.filter((res) => res.title && res.description && res.link)
 }
 
-let browser = null
-
 async function searchInBing({ text }) {
-  if (!browser) {
-    browser = await puppeteer.launch({
-      executablePath: getChromiumExecPath(),
-    })
-  }
+  const browser = await pie.connect(app, puppeteer)
 
   const searchResult = await Promise.all([
     getPageResult(`https://bing.com/search?q=${text}`, browser),
@@ -74,6 +68,7 @@ module.exports.bingSearchRunner = function (browser) {
         browser.webContents.send(BingEvent.BING_PROXY_FINISH, result)
       })
       .catch((err) => {
+        console.log('err', err)
         browser.webContents.send(BingEvent.BING_PROXY_ERROR, err)
       })
   })
