@@ -23,7 +23,7 @@ Check following demo:
 
 ## Download
 
-- Mac 11.11+: [64bit](https://github.com/leftstick/electron-awesome/releases/download/1.0.0/Electron-Awesome.app.zip)
+- Mac 11.11+: [64bit](https://github.com/leftstick/electron-awesome/releases/download/1.1.0/Electron-Awesome.app.zip)
 
 ## LICENSE
 
