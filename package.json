@@ -23,9 +23,6 @@
       "target": "dmg"
     },
     "asar": true,
-    "asarUnpack": [
-      "node_modules/puppeteer/.local-chromium/**/*"
-    ],
     "files": [
       "build/",
       "output/",
