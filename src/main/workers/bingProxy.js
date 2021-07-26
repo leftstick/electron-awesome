@@ -45,8 +45,15 @@ async function getPageResult(pageUrl, browser) {
   return searchResult.filter((res) => res.title && res.description && res.link)
 }
 
+/**
+ * @type {puppeteer.Browser}
+ */
+let browser = null
+
 async function searchInBing({ text }) {
-  const browser = await pie.connect(app, puppeteer)
+  if (!browser) {
+    browser = await pie.connect(app, puppeteer)
+  }
 
   const searchResult = await Promise.all([
     getPageResult(`https://bing.com/search?q=${text}`, browser),
